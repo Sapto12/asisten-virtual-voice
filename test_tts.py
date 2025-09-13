@@ -18,3 +18,31 @@ def test_speech_to_text():
         
         except Exception as e:
             print(f"error acessing microphone {e}")
+            return
+        print("\nSPEECH TO TEXT TEST")
+        print("silahkan bicara setelah mendengar RECORDING")
+        print("katakan sesuatu dalam bahasa indonesia atau inggris")
+        print("press ctrl+c to stop ")
+
+        while True:
+            try:
+                with sr.Microphone() as source:
+                    print("RECORDING (bicarase sekarang)...")
+
+                    audio = r.listen(source, timeout=1, phrase_time_limit=10)
+                    print("RECORDING selesai, memproses...")
+
+                    try:
+                        text = r.recognize_google(audio, language="id-ID")
+                        print(f"Anda mengatakan : {text}")
+                    except sr.UnknownValueError:
+
+                        try:
+                            text = r.recognize_google(audio, language="en-US")
+                            print(f"You said : {text}")
+                        except sr.UnknownValueError:
+                            print("Google Speech Recognition tidak dapat memahami audio")
+                        except sr.RequestError as e:
+                            print(f"Permintaan ke Google Speech Recognition gagal; {e}")
+                            print("mungkin karena masalah koneksi internet")
+                    except sr.WaitTimeoutError as e: 
