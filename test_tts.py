@@ -53,7 +53,7 @@ def test_speech_to_text():
                     except sr.WaitTimeoutError as e: 
 
     # Test microphone
-    print("\nTesting microphone...")
+                     print("\nTesting microphone...")
     try:
         with sr.Microphone() as source:
             print("Adjusting for ambient noise... (tunggu 2 detik)")
